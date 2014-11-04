@@ -28,7 +28,7 @@ Call any of the following methods (outlined in the Roku sdk docs):
 result = client.validate_transaction 'some-transaction-id'
 result = client.validate_refund 'some-refund-id'
 result = client.cancel_subscription 'some-tranasaction-id', 'cancellation_date', 'partner_ref_id'
-result  = client.refund_subscription 'some-transaction-id', 'amount', 'partner_ref_id', 'comments'
+result = client.refund_subscription 'some-transaction-id', 'amount', 'partner_ref_id', 'comments'
 ```
 
 ## Response
