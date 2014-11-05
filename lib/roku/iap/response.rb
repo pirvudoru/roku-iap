@@ -13,7 +13,6 @@ class Roku::Iap::Response
         send "#{underscore}=", e.text.nil? ? "" : e.text
       end
     else
-      puts response.body
       raise Roku::Iap::Exceptions::General, response.code.to_i
     end
   end
