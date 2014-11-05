@@ -12,8 +12,10 @@ class Roku::Iap::Response
         self.class.class_eval("attr_accessor :#{underscore}")
         send "#{underscore}=", e.text.nil? ? "" : e.text
       end
+    elsif response.code.to_i == 404
+      raise Roku::Iap::Exceptions::InvalidCredentials, "Ensure that your Roku API key is not nil!"
     else
-      raise Roku::Iap::Exceptions::General, response.code.to_i
+      raise Roku::Iap::Exceptions::General, response.body
     end
   end
 

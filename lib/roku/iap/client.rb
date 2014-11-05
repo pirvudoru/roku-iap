@@ -32,6 +32,12 @@ class Roku::Iap::Client
   end
 
   def refund_subscription(transaction_id, amount, partner_ref_id="", comments="")
+
+    unless amount.match(/\d+/)
+      # The Roku API returns 400 if amount is not parsable
+      raise Roku::Iap::Exceptions::TypeError, "Ensure amount is integer or float!"
+    end
+
     path = "/listen/transaction-service.svc/refund-subscription"
     request_body_json = {
       :partnerApiKey => @dev_token, 

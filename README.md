@@ -46,12 +46,16 @@ else
 end
 ```
 
-Non-200 status code responses will raise a Roku::Iap::Exceptions::General, and are distinct from errors returned by the Roku API (which you may call ```result.error_message``` to elaborate upon)
+## Exceptions
+
+Non-200 status code responses will raise a Roku::Iap::Exceptions::General exception, and are distinct from errors returned by the Roku API (which you may call ```result.error_message``` to elaborate upon). A 404 can be presumed to be a nil devtoken parameter, and will raise a Roku::Iap::Exceptions::InvalidCredentials exception.
+
+All defined exceptions inherit from Roku::Iap::Exceptions::Exception, and can be handled as:
 
 ```ruby
 begin
   result = client.validate_transaction 'some-transaction-id'
-rescue Roku::Iap::Exceptions::General => e
+rescue Roku::Iap::Exceptions::Exception => e
   # enqueue to try again later
 end
 ```
