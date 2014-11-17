@@ -23,7 +23,7 @@ class Roku::Iap::Client
   def cancel_subscription(transaction_id, cancellation_date, partner_ref_id="")
     path = "/listen/transaction-service.svc/cancel-subscription"
     request_body_json = { 
-      :partnerApiKey => @dev_token, 
+      :partnerAPIKey => @dev_token,
       :transactionId => transaction_id,
       :cancellationDate => cancellation_date,
       :partnerReferenceId => partner_ref_id
@@ -40,7 +40,7 @@ class Roku::Iap::Client
 
     path = "/listen/transaction-service.svc/refund-subscription"
     request_body_json = {
-      :partnerApiKey => @dev_token, 
+      :partnerAPIKey => @dev_token,
       :transactionId => transaction_id,
       :amount => amount, 
       :partnerReferenceId => partner_ref_id,
