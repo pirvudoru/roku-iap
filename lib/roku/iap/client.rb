@@ -55,7 +55,7 @@ class Roku::Iap::Client
     uri = URI.parse "#{@host}#{path}"
     req = Net::HTTP::Get.new uri.request_uri
     res = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') { |http| http.request req }
-    Roku::Iap::Response.new res
+    create_response res
   end
 
   def post_data(path, request_body_json)
@@ -66,6 +66,16 @@ class Roku::Iap::Client
       req.body = request_body_json
       http.request req
     end
-    Roku::Iap::Response.new res
+    create_response res
+  end
+
+  def create_response(response)
+    if response.code.to_i == 200
+      Roku::Iap::Response.new response.body
+    elsif response.code.to_i == 404
+      raise Roku::Iap::Exceptions::InvalidCredentials, "Ensure that your Roku API key is not nil!"
+    else
+      raise Roku::Iap::Exceptions::General, response.body
+    end
   end
 end
